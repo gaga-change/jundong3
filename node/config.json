@@ -1,3 +1,5 @@
 {
-  "port" : 8080
+  "port" : 8080 ,
+  "key" : "session_id",
+  "expires" : 1200000
 }

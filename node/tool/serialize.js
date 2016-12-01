@@ -11,7 +11,6 @@ var serialize = function (name, val, opt) {
     if (opt.expires) pairs.push('Expires=' + opt.expires.toUTCString());
     if (opt.httpOnly) pairs.push('HttpOnly');
     if (opt.secure) pairs.push('Secure');
-
     return pairs.join(';');
 };
 module.exports = serialize;
