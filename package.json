@@ -3,10 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "bower": "^1.7.7"
+    "body-parser": "^1.15.2",
+    "bower": "^1.7.7",
+    "express": "^4.14.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.4.1",
+    "morgan": "~1.7.0",
+    "node-sass-middleware": "0.8.0",
+    "serve-favicon": "~2.3.0"
   },
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "start": "node ./bin/www"
   },
   "devDependencies": {
     "colors.css": "^3.0.0"
