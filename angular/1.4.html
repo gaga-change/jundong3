@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="myApp" ng-cloak>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <title>绑定多个页面元素的Angular程序</title>
+</head>
+<body>
+<h3 class="text-center">绑定多个页面元素</h3>
+<div class="container">
+<table class="table table-bordered table-hover  " ng-controller="StudentCtrl">
+    <thead>
+    <tr>
+        <th ng-repeat="i in attrName"><span ng-bind="i"></span></th>
+    </tr>
+    </thead>
+    <tr ng-repeat="i in studentList">
+        <td ng-repeat="key in attrName"><span ng-bind="i[key]"></span></td>
+    </tr>
+</table>
+</div>
+<script>
+
+    var app = angular.module('myApp', [])
+            .controller('StudentCtrl', ['$scope', function ($scope) {
+                $.get('data/student.json', function (data) {
+                    var studentList = data['students'];
+                    if (studentList.length < 1) return;
+                    var attrName = [];
+                    for (var i  in studentList[0]) {
+                        attrName.push(i);
+                    }
+                    $scope.$apply(function () {
+                        $scope.studentList = studentList;
+                        $scope.attrName = attrName;
+                    })
+
+                });
+            }])
+</script>
+</body>
+</html>

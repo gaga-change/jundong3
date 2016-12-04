@@ -1,0 +1,9 @@
+{
+  "students" : [
+    {"name": "张三", "sex": "男" , "age": "12", "scope": 95},
+    {"name": "李四", "sex": "女" , "age": "22", "scope": 93},
+    {"name": "王五", "sex": "女" , "age": "23", "scope": 88},
+    {"name": "万一", "sex": "男" , "age": "13", "scope": 77},
+    {"name": "二狗", "sex": "女" , "age": "17", "scope": 59}
+  ]
+}
