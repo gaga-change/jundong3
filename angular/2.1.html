@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <title>Angular表达式与JavaScript表达式之间的相互调用</title>
+</head>
+<body>
+<h3 class="text-center">Angular表达式与JavaScript表达式之间的相互调用</h3>
+<div class="container" ng-controller="JsCtrl">
+    <div class="panel panel-default" >
+        <div class="panel-heading">执行JavaScript表达式</div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="form-group">
+                    <label for="input1"></label>
+                    <input class="form-control" type="text" id="input1" ng-model="value1">
+                </div>
+                <button class="btn btn-info center-block" type="button" ng-click="addOne(value1)">加1</button>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">使用$eval执行angular语句 <small class="label label-danger">太过危险</small></div>
+        <div class="panel-body">
+            <input class="form-control" type="text" ng-model="value2" title="example">
+            <br>
+            <code>
+                <samp ng-bind="$eval(value2)"></samp>
+            </code>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', [])
+            .controller('JsCtrl', ['$scope', function ($scope) {
+                $scope.value1 = 20;
+                $scope.value2 = "20 + 1 | number: 0";
+                $scope.addOne = function (v) {
+                    v = parseInt(v) || 0;
+                    $scope.value1 = v + 1;
+                }
+            }]);
+</script>
+</body>
+</html>

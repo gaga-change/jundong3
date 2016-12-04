@@ -1,0 +1,33 @@
+<!--Created by dong on 2016/12/4.-->
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <title>在事件中绑定$scope对象的方法</title>
+</head>
+<body>
+<h3 class="text-center">在事件中绑定$scope对象的方法</h3>
+<div class="container" ng-controller="Ctrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">heading</div>
+        <div class="panel-body">
+            <code><samp ng-bind="text"></samp></code>
+            <br><br>
+            <button class="btn btn-default" type="button" ng-click="changeText()">点击改变上面内容</button>
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', [])
+            .controller('Ctrl', ["$scope", function ($scope) {
+                $scope.text = "gaga ";
+                $scope.changeText = function () {
+                    $scope.text = "gaga_change";
+                }
+            }]);
+</script>
+</body>
+</html>

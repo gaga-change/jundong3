@@ -1,0 +1,40 @@
+<!--Created by dong on 2016/12/4.-->
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <title>$scope对象方法和属性的继承</title>
+</head>
+<body>
+<h3 class="text-center">$scope对象方法和属性的继承</h3>
+<div class="container" ng-controller="FaCtrl">
+    <div class="panel panel-default" ng-controller="SoCtrl">
+        <div class="panel-heading">$scope的继承
+            <small>当前都在子控制器中，text和textChange为父控制器的属性和方法。</small>
+        </div>
+        <div class="panel-body">
+            <code><samp ng-bind="text"></samp></code> <br>
+            <code><samp ng-bind="childText"></samp></code>
+            <hr>
+            <button class="btn btn-warning" type="button" ng-click="textChange()">点击改变text</button>
+
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('myApp', [])
+            .controller('FaCtrl', ["$scope", function ($scope) {
+                $scope.text = "FaCtrl 下的text";
+                $scope.textChange = function () {
+                    $scope.text = "FaCtrl 下的text 改 ";
+                }
+            }])
+            .controller('SoCtrl', ['$scope', function($scope) {
+                $scope.childText = "childText";
+            }]);
+</script>
+</body>
+</html>
