@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var compression = require('compression');
+
 
 var app = express();
 
@@ -14,6 +16,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// 配置中间件,开启gizp压缩
+app.use(compression());
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(path.join(path.dirname(__dirname), 'lib','img', 'favicon.ico'))));
 app.use(logger('dev'));
