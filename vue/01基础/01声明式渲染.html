@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<!--
+知识点
+    1. v-bind：***   属性名
+    2. {{}}
+
+-->
+<style>
+    .haha {
+        color: green;
+    }
+</style>
+<body>
+
+<div id="app">
+    {{message}}
+</div>
+<div id="app2">
+    <span v-bind:class="message">
+        {{message}}
+    </span>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+var app = new Vue({
+    el: "#app",
+    data: {
+        message: "Hello Vue ! "
+    }
+});
+var app3 = new Vue({
+    el: "#app2",
+    data: {
+        message: "haha "
+    }
+})
+</script>
+</html>
