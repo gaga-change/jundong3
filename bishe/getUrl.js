@@ -21,7 +21,7 @@ function getUrl(data) {
         for (let i = 0; i < ele.length; i++) {
             let url_son = ele[i].attribs[str];
             if(url_son == undefined || url_son.length < 1) continue;
-            let re = new RegExp(/javascript:void\(0\)/, "g");
+            let re = new RegExp(/javascript:/, "g");
             let isHave = re.test(url_son);
             if (isHave) continue; //剔除 javascript:void
             list.push(url_son);
