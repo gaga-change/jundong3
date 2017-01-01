@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container" id="d1">
+    <input type="text" v-model="message">
+    <hr>
+    <samp v-text="message.split('').reverse().join('')"></samp>
+    <hr>
+    <samp v-text="reversedMessage"></samp>
+    <samp v-text="reverseMessage()"></samp>
+    <hr>
+    <div>
+        <span>时间：</span> <samp v-text="date"></samp>
+    </div>
+</div>
+
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var d1 = new Vue({
+        el: "#d1",
+        data: {
+            message: "123456",
+        },
+        methods: {
+          reverseMessage: function () {
+              return this.message.split('').reverse().join('');
+          }
+        },
+        computed: {
+            reversedMessage: function () { //不渲染的前提下，中间代码只会执行一次，有缓存
+                return this.message.split('').reverse().join('');
+            },
+            date: function () {
+                return new Date();
+            }
+        }
+    })
+</script>
+</html>
