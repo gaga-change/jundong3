@@ -16,21 +16,25 @@
     </style>
 </head>
 <body>
-<div class="container bg-danger">
-    <div class="row">
-        <div class="a col-sm-9 col-sm-push-3">
-            Leve 1: .col-sm-9
-            <div class="row">
-                <div class="a col-xs-8 col-sm-6">Level 2: .col-xs-8 .col-sm-6</div>
-                <div class="a col-xs-4 col-sm-6">Level 2: .col-xs-4 .col-sm-6</div>
-            </div>
-        </div>
-    </div>
+<!--<div class="container bg-danger">-->
+    <!--<div class="row">-->
+        <!--<div class="a col-sm-9 col-sm-push-3">-->
+            <!--Leve 1: .col-sm-9-->
+            <!--<div class="row">-->
+                <!--<div class="a col-xs-8 col-sm-6">Level 2: .col-xs-8 .col-sm-6</div>-->
+                <!--<div class="a col-xs-4 col-sm-6">Level 2: .col-xs-4 .col-sm-6</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-</div>
-
+<!--</div>-->
+<div>要改这个文字<span id="rate"></span >Hz</div>
 
 </body>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script >
+    document.getElementById('rate').previousSibling.data = "123";
+//    $("#rate")[0].previousSibling.data = "123";
+</script>
 </html>

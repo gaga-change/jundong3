@@ -20,10 +20,13 @@ function getUrl(data) {
         let list = [];
         for (let i = 0; i < ele.length; i++) {
             let url_son = ele[i].attribs[str];
+            // console.log("url_son:", url_son);
             if(url_son == undefined || url_son.length < 1) continue;
             let re = new RegExp(/javascript:/, "g");
             let isHave = re.test(url_son);
-            if (isHave) continue; //剔除 javascript:void
+            if (isHave) continue; //剔除 javascript
+            // console.log("url_son   " + url_son);
+
             list.push(url_son);
         }
         return list;

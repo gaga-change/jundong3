@@ -10,9 +10,10 @@
  */
 let http = require('http');
 function getData(url, callBack) {
-
+    if (url.substr(0, 4) != "http")
+        url = "http://" + url;
     http.get(url, function (msg) {
-        //res.setEncoding('utf-8'); //防止中文乱码
+        msg.setEncoding('utf-8'); //防止中文乱码
         let d = "";
         msg.on('data', function (data) {
             d += data;

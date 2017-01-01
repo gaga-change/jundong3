@@ -2,57 +2,36 @@
  * Created by dong on 2016/12/12.
  */
 
-// var str = "javascript:void(0);";
-// var patt = new RegExp(/javascript:void\(0\)/, "g");
-// var isHave = patt.test(str);
-// console.log(isHave)
-//
-// // 使用正则表达式对URL进行解析
-// function parseUrl(url) {
-//
-// }
-//
-// function testParseUrl() {
-//     var url = "http://ppp.com:8090";
-//
-//     parseUrl(url);
-//
-//     var url2 = "http://ppp.com:9090/mximprove/mxt/scripts/views/MainViewController.js";
-//
-//     parseUrl(url2);
-//
-// }
-// testParseUrl()
-//
-//
-// return;
-
-
 let getData = require('./getData'),
     getUrl = require('./getUrl');
 
 
-function find(url) {
+function find(url, callBack) {
     getData(url, (data, pathUrl) => {
-        console.log("path", pathUrl);
         let path = require('path');
         let base = getUrlBase(url);
-        // if (url.substr(-1, 1) != "/")
-        //     url = url + '/';
-        /*根据判断 获取父层*/
-        if (pathUrl.substr(-1, 1) == "/") pathUrl += "index";
-        let faUrl = path.dirname(base + pathUrl);
+        let faUrl;
+        if (pathUrl.substr(-1, 1) == "/") {
+            faUrl = path.dirname(base + pathUrl + "index");
+        } else {
+            faUrl = path.dirname(base + pathUrl);
+
+        }
         let list = getUrl(data);
         for (let i in list) {
             list[i].forEach((v, j) => {
+                // console.log("geUrl" , v);
                 list[i][j] = trun(v);
             });
         }
         // console.log("location", location);
-        console.log("base", base);
-        console.log("faUrl", faUrl);
-        console.log(list);
-        return list;
+        // console.log("base", base);
+        // console.log("faUrl", faUrl);
+        // console.log(list);
+        // list.base = base;
+        // list.pathUrl = pathUrl;
+        // return list;
+        callBack(list, base, pathUrl);
         /*加工路径
          * 1. http:// | https://  开头
          * 2.  /
@@ -60,11 +39,15 @@ function find(url) {
          * 2，3. 都转为 第一种形式
          * */
         function trun(url) {
+            // console.log("获取的url----",url ,"----")
+            if(url.substr(0,2) == "//")
+                url = "http:" + url;
             if (require('path').isAbsolute(url)) {
                 //如果是绝对路径
                 return base + url;
             }
             if (url.substr(0, 7) != "http://" && url.substr(0, 7) != "https:/") {
+
                 return faUrl + "/" + url;
             }
             return url;
