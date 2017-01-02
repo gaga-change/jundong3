@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="d1" v-cloak>
+    <hr>
+    <code>v-if  v-else</code>
+    <br>
+    <span v-if="show">Ok</span>
+    <span v-else>gaga</span>
+    <hr>
+    <code>v-show</code>
+    <div v-show="show">gaga</div>
+    <hr>
+    <button type="button" @click="changeShow">点击改变show值为</button><code v-text="show"></code>
+
+    <hr>
+    <input v-model.number="age" type="number">
+    <code v-text="age"></code>
+</div>
+
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var d1 = new Vue({
+        el: "#d1",
+        data: {
+            show: false,
+            age: ''
+        },
+        methods: {
+            changeShow: function () {
+                this.show = !this.show;
+            }
+        }
+    })
+</script>
+</html>

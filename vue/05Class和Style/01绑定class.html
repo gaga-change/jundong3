@@ -11,19 +11,17 @@
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<hr>
 <div class="container" id="d1">
-    <input type="text" v-model="message">
     <hr>
-    表达式法<samp v-text="message.split('').reverse().join('')"></samp> <br>
-    计算属性<samp v-text="reversedMessage"></samp> <br>
-    方法属性<samp v-text="reverseMessage()"></samp> <br>
-    监听属性<samp v-text="newMessage"></samp> <br>
     <hr>
-    <div>
-    </div>
+    <button type="button" @click="changeToRed">变红</button>
+    <hr>
+    直接绑定一个对象 : <span class="label label-default" :class="classObject">gaga</span>
+    <br><br>
+    直接把对象写再指令中 <span class="label label-default" :class="{'label-danger' : isDanger}">gaga</span>
+    <br> <br>
+    绑定计算属性 ： <span class="label label-default" :class="comDanger">gaga</span>
 </div>
-
 </body>
 <script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -32,24 +30,27 @@
     var d1 = new Vue({
         el: "#d1",
         data: {
-            message: "123456",
-            newMessage: "54321"
+            isDanger: false,
+            classObject: {
+                'label-danger': false
+            }
         },
         methods: {
-          reverseMessage: function () {
-              return this.message.split('').reverse().join('');
-          }
-        },
-        watch: {
-            message: function (val) {
-                this.newMessage = val.split('').reverse().join('');
+            changeToRed: function () {
+                this.isDanger = true;
+                this.classObject['label-danger'] = true;
             }
         },
         computed: {
-            reversedMessage: function () { //不渲染的前提下，中间代码只会执行一次，有缓存
-                return this.message.split('').reverse().join('');
+            comDanger: function () {
+                if(this.isDanger){
+                    return {'label-danger': true};
+                }else {
+                    return {'label-danger': false};
+                }
             }
         }
     })
+
 </script>
 </html>
