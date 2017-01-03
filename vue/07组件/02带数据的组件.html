@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <hr>
+    <div id="d1">
+        <gaga></gaga>
+    </div>
+    <hr>
+    <div id="d2">
+        <gaga></gaga>
+    </div>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        var data = {counter: 0};
+        Vue.component('gaga', {
+            template: "<div><code>{{counter}}</code> <br> <br><button class='btn btn-success' type='button' @click='add'>+</button></div>",
+            data: function () {
+                return {counter: 0};
+            },
+            methods: {
+                "add": function () {
+                    this.counter += 1;
+                }
+            }
+        });
+        var d1 = new Vue({
+            el: "#d1"
+        });
+        var d2 = new Vue({
+            el: "#d2"
+        })
+    })()
+</script>
+</html>

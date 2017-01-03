@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div id="d1">
+        正常的v-model <input type="text" v-model="val">
+        <br>
+        语法糖<input type="text" :value="val" @input="val = $event.target.value">
+        <br>
+        自定义组件
+        <my-input :valSon="val" @input="val = arguments[0]"></my-input>
+        <hr>
+        <code v-text="val" ></code>
+    </div>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    Vue.component("my-input", {
+        props: {
+            valSon: ""
+        },
+        template: "<input type='text' :value='valSon' @input='gaga($event.target.value)'>",
+        methods: {
+            gaga: function (v) {
+                this.$emit('input', v)
+            }
+        }
+    });
+    var d1 = new Vue({
+        el: "#d1",
+        data: {
+            val: "gaga"
+        },
+        methods: {
+            test: function (v) {
+                console.log(v);
+            }
+        }
+    })
+</script>
+</html>
