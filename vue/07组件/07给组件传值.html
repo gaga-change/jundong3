@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div data-vue="all">
+        <app :msg="msg">
+        </app>
+    </div>
+</div>
+
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        Vue.component("app", {
+            template: "<div class='bg-info col-xs-12'><h3>我是子内容</h3><span >{{msg}}</span></div>",
+            props: ['msg']
+        });
+        new Vue({
+            el: "[data-vue = all]",
+            data: {
+                msg: "爸爸的一句话"
+            }
+        })
+    }())
+</script>
+</html>

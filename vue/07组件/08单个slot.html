@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div data-vue="all">
+        <father></father>
+    </div>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        Vue.component('child', {
+            template: "<div> <slot>只有再没有要分发内容时才会出现</slot><h2>我是子组件的标题</h2> </div>"
+        });
+        Vue.component('father', {
+            template: "<div> <h1>我是父组件的标题</h1> <child> <p>这是初始的一些内容</p> <p>这是更多的内容</p></child></div>"
+        });
+       new Vue({
+            el: "[data-vue = all]"
+       });
+    }())
+</script>
+</html>

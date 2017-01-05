@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div data-vue="all">
+        <father>
+            <h3 slot="footer"> 我是插入的尾部</h3>
+            <p>一部分内容</p>
+            <p>更多的内容</p>
+            <h1 slot="header"> 我是插入的头部</h1>
+        </father>
+    </div>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        Vue.component("father", {
+            template: "" +
+            "<div>" +
+            "<header> <slot name='header'></slot></header>" +
+            "<div ><slot></slot></div>" +
+            "<footer> <slot name='footer'></slot></footer>" +
+            "</div>"
+        });
+        new Vue({
+            el: "[data-vue = all]"
+        });
+    }())
+</script>
+</html>

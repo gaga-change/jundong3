@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" id="d1">
+    <!--演示作用于插槽例子-->
+    <father>
+        <template scope="props">
+            <span v-text="props.text"></span>
+        </template>
+    </father>
+    <hr>
+    <!--通过插槽，可以自定义渲染每一项-->
+    <my-ul :items="items">
+        作用域插槽也可以在这里命名
+        <template slot="item" scope="props">
+            <li class="my-fancy-item">{{ props.text }}</li>
+        </template>
+    </my-ul>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        Vue.component('father', {
+            template: "<div>" +
+            "<slot text='组件名叫father'></slot>" +
+            "</div>"
+        });
+        Vue.component("my-ul", {
+            template: "<ul>" +
+            "<h3>自定义列表</h3>" +
+            "<slot name='item' v-for='item in items' :text='item.text'></slot>" +
+            "{{items}}" +
+            "</ul>",
+            props: ["items"]
+        });
+        new Vue({
+            el: "#d1",
+            data: {
+                items: [
+                    {text: "gaga"},
+                    {text: "gaga"},
+                    {text: "gaga"},
+                    {text: "gaga"}
+                ]
+            }
+        })
+    }())
+</script>
+</html>
