@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+        /*第一次显示的那一瞬间*/
+        .gaga-enter {
+            opacity: 0;
+        }
+
+        /*整个进去都有，知道动画效果结束时消失该class， 注意的是，enter和active是同时出现的*/
+        .gaga-enter-active {
+            transition: opacity .5s;
+        }
+
+        /*静下心来就知道为什么这么写了*/
+        .gaga-leave-active {
+            transition: opacity .5s;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container" data-vue="all">
+    <hr>
+    <button class="btn btn-success" type="button" v-text="tag" @click="change"></button>
+    <hr>
+    <h3>效果显示</h3>
+    <transition name="gaga">
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        var _SHOW = "显示",
+            _HIDE = "隐藏";
+        new Vue({
+            el: "[data-vue = all]",
+            data: {
+                tag: _HIDE
+            },
+            methods: {
+                change: function () {
+                    this.tag = this.tag == _SHOW ? _HIDE : _SHOW;
+                }
+            },
+            computed: {
+                show: function () {
+                    return this.tag == _SHOW ? true : false;
+                }
+            }
+        })
+    }())
+</script>
+</html>
