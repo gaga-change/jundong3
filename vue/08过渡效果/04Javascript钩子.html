@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <script src="/lib/velocity.js/velocity.min.js"></script>
+</head>
+<body>
+<hr>
+<div id="example-4">
+    <button class="btn btn-success center-block" type="button" @click="show = !show">button</button>
+    <h1  class="bg-info text-center center-block" style="width: 50%">
+        <transition
+                v-on:before-enter="beforeEnter"
+                v-on:enter="enter"
+                v-on:leave="leave"
+                v-bind:css="false"
+        >
+            <p  v-if="show">gaga</p>
+        </transition>
+    </h1>
+</div>
+
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    new Vue({
+        el: '#example-4',
+        data: {
+            show: false
+        },
+        methods: {
+            beforeEnter: function (el) {
+                el.style.opacity = 0;
+                el.style.transformOrigin = 'left'
+            },
+            enter: function (el, done) {
+                Velocity(el, {opacity: 1, fontSize: '5em'}, {duration: 300});
+                Velocity(el, {fontSize: '1em'}, {complete: done})
+            },
+            leave: function (el, done) {
+                Velocity(el, {translateX: '15px', rotateZ: '50deg'}, {duration: 600});
+                Velocity(el, {rotateZ: '100deg'}, {loop: 2});
+                Velocity(el, {
+                    rotateZ: '45deg',
+                    translateY: '100px',
+                    translateX: '100px',
+                    opacity: 0
+                }, {complete: done})
+            }
+        }
+    })
+</script>
+</html>
