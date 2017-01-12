@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/animate.css/animate.css">
+</head>
+<body>
+<hr>
+<!--
+    其实就是可以用自定义的类 绑定到两个属性上
+-->
+<div class="container" id="gaga">
+    <button class="btn btn-success center-block" type="button" @click="show = !show">button</button>
+    <transition
+            name="gaga"
+            enter-active-class="animated tada"
+            leave-active-class="animated bounceOutRight"
+    >
+        <h3 v-if="show" class="bg-info text-center">gaga</h3>
+    </transition>
+
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    new Vue({
+        el: "#gaga",
+        data: {
+            show: "true"
+        }
+    })
+</script>
+</html>
