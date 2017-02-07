@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" id="gaga">
+    <gaga :level=1>
+        <span>我要塞的东西</span>
+    </gaga>
+    <gaga :level=1>
+        <span>我要塞的东西</span>
+    </gaga>
+    <gaga :level=2>
+        <span>我要塞的东西</span>
+    </gaga>
+    <gaga :level=3>
+        <span>我要塞的东西</span>
+    </gaga>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    let component = {
+        template: `  <div>
+    <span >{{level}}</span>
+    <h1 v-if="level === 1">
+      <slot></slot>
+    </h1>
+    <h2 v-if="level === 2">
+      <slot></slot>
+    </h2>
+    <h3 v-if="level === 3">
+      <slot></slot>
+    </h3>
+    <h4 v-if="level === 4">
+      <slot></slot>
+    </h4>
+    <h5 v-if="level === 5">
+      <slot></slot>
+    </h5>
+    <h6 v-if="level === 6">
+      <slot></slot>
+    </h6>
+  </div>`,
+        props: {
+            level: {
+                type: Number,
+                required: true
+            }
+        }
+    };
+    let gaga = new Vue({
+        el: '#gaga',
+        components: {
+            gaga: component
+        },
+        data: {
+            level: 1
+        }
+    })
+
+</script>
+</html>

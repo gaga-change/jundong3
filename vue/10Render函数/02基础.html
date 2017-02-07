@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" id="d1">
+    <anchored-heading :level = 1>123</anchored-heading>
+    <anchored-heading :level = 2>123</anchored-heading>
+    <anchored-heading :level = 3>123</anchored-heading>
+    <anchored-heading :level = 4>123</anchored-heading>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        Vue.component('anchored-heading', {
+            render: function (createElement) {
+                return createElement(
+                    'h' + this.level, //tag name 标签的名称
+                    this.$slots.default //子组件中的阵列
+                )
+            },
+            props: {
+                level: {
+                    type: Number,
+                    required: true
+                }
+            }
+        });
+        new Vue({
+            el: '#d1',
+
+        })
+    }());
+
+</script>
+</html>
