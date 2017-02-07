@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" id="d1">
+    <input type="text" v-focus>
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    (function () {
+        // 注册一个全局自定义指令 v-focus
+        Vue.directive('focus', {
+            // 当绑定元素插入到 DOM 中 ( 这函数是由内部自动调用 )
+            inserted: function (el) {
+                console.log(el);
+                // 聚焦元素
+                el.focus();
+            }
+        });
+        new Vue({
+            el: '#d1'
+        })
+    }())
+</script>
+</html>
