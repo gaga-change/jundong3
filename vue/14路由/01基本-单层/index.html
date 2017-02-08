@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script src="/lib/vue/vue-router.js"></script>
+<script>
+    /**
+     * 1. use调用插件
+     * 2. 创建组件对象
+     * 3. 创建路由对象
+     * 4. 爱咋用咋用
+     *
+     * */
+    (function () {
+        Vue.use(VueRouter);
+
+        var index = {template: `<div>我是主页的内容</div>`};
+        var person = {template: `<div>我是个人的内容</div>`};
+
+        var router = new VueRouter({
+            mode: "hash", // 如果不想用hash，选 "history"
+//            base: __dirname,
+            routes: [  // 值得注意的是， routes，
+                {path: '/', redirect: 'index'},
+                {path: '/index', component: index}, //默认会先找 '/'
+                {path: '/router', component: person},
+            ]
+        });
+        new Vue({
+            router,
+            template: `
+<div id="app">
+<ul>
+    <li> <router-link to="/">主页</router-link></li>
+    <li> <router-link to="router">router</router-link></li>
+</ul>
+<router-view></router-view>
+</div>
+`
+        }).$mount('#app')
+    }())
+
+</script>
+</html>
