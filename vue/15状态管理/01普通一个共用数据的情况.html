@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>example</title>
+    <meta name="description" content="example">
+    <meta name="author" content="jundong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+</div>
+</body>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script src="/lib/vue/vue-router.js"></script>
+<script>
+    /**
+     *  如果多个实例共享状态，可以简单的通过一份数据来维护
+     *  但可怕的是，调试将会成为噩梦，简单说，就是不好调试，尤其是代码复杂的时候
+     *
+      */
+
+    var data = {count: 1};
+    var d1 = new Vue({
+        data: data
+    });
+    var d2 = new Vue({
+        data: data
+    });
+</script>
+</html>
