@@ -1,0 +1,14 @@
+
+#app {
+    overflow: hidden;
+    background-color: beige;
+}
+.index, .person {
+    border: 1px solid green;
+}
+ a.router-link-active {
+     color: #f66;
+ }
+li.router-link-active a {
+    color: #f66;
+}
