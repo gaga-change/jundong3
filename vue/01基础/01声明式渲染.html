@@ -27,7 +27,7 @@
     {{message}}
 </div>
 <div id="app2">
-    <span v-bind:class="message">
+    <span :class="message">
         {{message}}
     </span>
 </div>
@@ -36,6 +36,7 @@
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/vue/vue.js"></script>
 <script>
+    console.log("gaga");
 var app = new Vue({
     el: "#app",
     data: {

@@ -17,7 +17,9 @@
     </div>
     <hr>
     <div id="d2">
-        <component2></component2>
+        <component2>
+            <component1></component1>
+        </component2>
     </div>
 </div>
 </body>
@@ -30,12 +32,13 @@
     * 1. 事先注册好，然后直接在代码里用
     * 2. 在Vue对象里注册
     * */
-    var component2 = {
-        template: "<span>component2 组件二</span>"
-    };
+
     Vue.component('component1', {
         template: "<span>component1 组件一</span>"
     });
+    var component2 = {
+        template: "<span>component2 组件二 <component1></component1> <slot></slot></span>"
+    };
     var d1 = new Vue({
         el: "#d1"
     });
