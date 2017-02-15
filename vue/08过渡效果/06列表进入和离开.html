@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06列表进入和离开</title>
+    <link rel="stylesheet" href="/lib/animate.css/animate.css">
+    <style>
+        ul {
+            padding: 20px;
+            background: #beffdc;
+        }
+
+        .v-enter {
+            display: none;
+        }
+
+        .v-enter-active {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: rotateInUpLeft;
+        }
+
+        .v-leave-active {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            /*animation-delay: 1s;*/
+            animation-name: fadeOutDown;
+            opacity: 0;
+            position: absolute; /*平滑退出关键点*/
+        }
+        .move {
+            transition: all 1s;
+        }
+        .item {
+            transition: all 1s;
+            display: inline-block;
+            /*display: block;*/
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="app1"></div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    let app;
+    function RUN() {
+         app = new Vue({
+            data(){
+                return {
+                    list: [1, 2, 3, 4, 5],
+                    nextNum: 6
+                }
+            },
+            template: "#home",
+            methods: {
+                randomIndex: function () {
+                    return Math.floor(Math.random() * this.list.length)
+                },
+                add: function () {
+                    this.list.splice(this.randomIndex(), 0, this.nextNum++)
+                },
+                remove: function () {
+                    this.list.splice(this.randomIndex(), 1)
+                },
+                shuffle: function () {
+                    this.list = _.shuffle(this.list);
+                }
+            }
+        }).$mount(document.getElementById('app1'));
+    }
+</script>
+<script type="text/x-template" id="home">
+    <div id="app">
+        <h3>hello</h3>
+        <button type="button" @click="add">add</button>
+        <button type="button" @click="remove">remove</button>
+        <button type="button" @click="shuffle">shuffle</button>
+        <transition-group tag="ul">
+            <li v-for="item in list" :key="item" class="item">
+                <span v-text="item"></span>
+            </li>
+        </transition-group>
+    </div>
+</script>
+<script>RUN()</script>
+</body>
+</html>
