@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/lib/animate.css/animate.css">
+    <style>
+        .v-enter {
+            display: none;
+        }
+
+        .v-enter-active {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: rotateInUpLeft;
+        }
+
+        .v-leave-active {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: fadeOutDown;
+        }
+    </style>
+    <style>
+        .gaga > div {
+            width: 100%;
+            background: #b7fffa;
+        }
+
+        .view {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="/lib/vue/vue.js"></script>
+<script src="/lib/vue/vue-router.js"></script>
+<script>Vue.use(VueRouter);</script>
+<script>
+    /*第一层特性。无论怎么改变路由，第一层总是那几个*/
+    let RUN = function () {
+        let router = new VueRouter({
+            mode: 'hash',
+            routes: [
+                {path: '/list1', component: {template: '#template-list1'}},
+                {path: '/list2', component: {template: '#template-list2'}},
+                {path: '/list3', component: {template: '#template-list3'}}
+            ]
+        });
+        let app = new Vue({
+            el: "#app",
+            template: "#template-home",
+            router: router
+        });
+    }
+</script>
+<script type="text/x-template" id="template-home">
+    <div id="home">
+        <ul>
+            <li>
+                <router-link to="/list1">/list1</router-link>
+            </li>
+            <li>
+                <router-link to="/list2">/list2</router-link>
+            </li>
+            <li>
+                <router-link to="/list3">/list3</router-link>
+            </li>
+        </ul>
+        <div class="gaga">
+            <transition class="test">
+                <router-view class="view"></router-view>
+            </transition>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+</script>
+<script type="text/x-template" id="template-list1">
+    <div id="list1">
+        <h2>我是列表一</h2>
+    </div>
+</script>
+<script type="text/x-template" id="template-list2">
+    <div id="list2">
+        <h2>我是列表二</h2>
+    </div>
+</script>
+<script type="text/x-template" id="template-list3">
+    <div id="list3">
+        <!--<h2>我是列表二</h2>-->
+    </div>
+</script>
+<script>RUN();</script>
+</body>
+</html>
