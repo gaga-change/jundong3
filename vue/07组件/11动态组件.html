@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <component :is = 'currentView' :inline-template="false"></component>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: {
+                template: "<h1>home</h1>"
+            },
+            page1: {
+                template: "<h1>page1</h1>"
+            }
+        }
+    })
+</script>
+</body>
+</html>
