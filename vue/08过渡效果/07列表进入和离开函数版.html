@@ -73,7 +73,7 @@
         <transition-group tag="ul" :css="false" @before-enter="beforeEnter"
                           :appear="true"
                           @enter="enter" @leave="leave">
-            <li v-for="(item, index) in computedList" :key="item.msg" class="item" :data-index='index'>
+            <li v-for="(item, index) in computedList" :key="item.msg" :data-index='index'>
                 <span v-text="item.msg"></span>
             </li>
         </transition-group>
