@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08列表换位</title>
+    <link rel="stylesheet" href="/lib/animate.css/animate.css">
+    <script src="/lib/velocity.js/velocity.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+    <style>
+        .item {
+            /*transition: all 1s;*/
+        }
+    </style>
+</head>
+<body>
+<div id="app1"></div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var app;
+    function RUN() {
+        app = new Vue({
+
+            data: function () {
+                return {
+                    query: '',
+                    list: [{msg: 'Bruce Lee'},
+                        {msg: 'Jackie Chan'},
+                        {msg: 'Chuck Norris'},
+                        {msg: 'Jet Li'},
+                        {msg: 'Kung Fury'}],
+                }
+            },
+            template: "#home",
+            computed: {
+                computedList: function () {
+                    var vm = this;
+                    return this.list.filter(function (item) {
+                        return item.msg.toLocaleLowerCase().indexOf(vm.query.toLocaleLowerCase()) !== -1;
+                    })
+                }
+            },
+            methods: {
+                beforeEnter: function (el) {
+                    el.style.opacity = 0;
+                    el.style.height = 0;
+                },
+                enter: function (el, done) {
+                    var delay = el.getAttribute('data-index') * 150;
+                    setTimeout(function () {
+                        Velocity(
+                            el,
+                            {opacity: 1, height: '1.6em'},
+                            {complete: done}
+                        )
+                    }, delay);
+                },
+                leave: function (el, done) {
+                    console.log("?/")
+                    var delay = el.getAttribute('data-index') * 150;
+                    setTimeout(function () {
+                        Velocity(
+                            el,
+                            {opacity: 0, height: '0'},
+                            {complete: done}
+                        )
+                    }, delay)
+                },
+                changePos: function () {
+//                    this.list = [
+//                        {msg: 'Kung Fury'},
+//                        {msg: 'Jackie Chan'},
+//                        {msg: 'Chuck Norris'},
+//                        {msg: 'Jet Li'},
+//                        {msg: 'Bruce Lee'}];
+                    this.list = _.shuffle(this.list);
+                }
+            }
+        }).$mount(document.getElementById('app1'));
+    }
+</script>
+<script type="text/x-template" id="home">
+    <div id="app">
+        <h3>hello</h3>
+        <!--<button type="button" @click="add">add</button>-->
+        <!--<button type="button" @click="remove">remove</button>-->
+        <!--<button type="button" @click="shuffle">shuffle</button>-->
+        <input type="text" v-model="query">
+        <button type="button" @click="changePos">1和5换位</button>
+        <transition-group tag="ul"  @before-enter="beforeEnter"
+                          :appear="true"
+                          @enter="enter" @leave="leave">
+            <li v-for="(item, index) in computedList" :key="item.msg" class="item" :data-index='index'>
+                <span v-text="item.msg"></span>
+            </li>
+        </transition-group>
+    </div>
+</script>
+<script>RUN()</script>
+</body>
+</html>
