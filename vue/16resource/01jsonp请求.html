@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/lib/velocity.js/velocity.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <transition-group tag="ul" :css="false"
+                      :appear="true"
+    >
+        <li v-for="(item, index) in list" :key="item.name" :data-index='index'>
+            <!--<span v-text="item.name"></span>-->
+            <input type="text" v-model="item.name">
+        </li>
+    </transition-group>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script src="/lib/vue/vue-resource.js"></script>
+<script>
+    Vue.use(VueResource);
+
+    var app = new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                data: {}
+            }
+        },
+        computed: {
+            list: function () {
+                console.log("run");
+                console.log(this.data);
+                console.log(this.data['categoryList']);
+                return this.data['categoryList'] ? (this.data['categoryList']) : ([])
+            }
+        },
+        watch: {
+            data: {
+                handler: function (val, oldVal) { /* ... */
+                    console.log(val);
+                },
+                deep: true
+            }
+        },
+        mounted: function () {
+            this.$http.jsonp("http://192.168.178.166/api/mobile-category-service/rs/category/searchgamelistbytype",
+                {
+                    params: {
+                        pageIndex: 1,
+                        pageSize: 60,
+                        isShowInHome: true,
+                        gameType: 1,
+                    },
+                    jsonp: 'callback'
+                }).then(function (res) {
+                this.data = JSON.parse(res.bodyText);
+            }, function () {
+                console.log("请求失败");
+            });
+        },
+        methods: {
+            beforeEnter: function (el) {
+                el.style.opacity = 0;
+                el.style.height = 0;
+            },
+            enter: function (el, done) {
+                var delay = el.getAttribute('data-index') * 150;
+                setTimeout(function () {
+                    Velocity(
+                        el,
+                        {opacity: 1, height: '1.6em'},
+                        {complete: done}
+                    )
+                }, delay);
+            },
+            leave: function (el, done) {
+                var delay = el.getAttribute('data-index') * 150;
+                setTimeout(function () {
+                    Velocity(
+                        el,
+                        {opacity: 0, height: '0'},
+                        {complete: done}
+                    )
+                }, delay)
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>
