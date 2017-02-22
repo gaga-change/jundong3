@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件两种注册方法</title>
+</head>
+<body>
+<div id="app1"></div>
+<div id="app2"></div>
+
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var component1 = {template: `<div>组件一</div>`}
+    var component2 = {template: `<div>组件二</div>`}
+    var componentApp = {template: `<div> 爱泡泡 <com1></com1> <hr><hr></div>`}
+
+    /**
+     * 方法一: 注册为全局
+     */
+    Vue.component("com1", component1);
+    var app1 = new Vue({
+        el: "#app1",
+        render: hh => hh(componentApp)
+    })
+
+    /**
+     * 方法二： 在内部注册
+     */
+    var app2 = new Vue({
+        el: "#app2",
+        components: {
+            com2: component2
+        },
+        template:`<div> 爱泡泡 <com2></com2></div>`
+    })
+
+</script>
+</body>
+</html>
