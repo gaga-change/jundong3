@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的data选项</title>
+</head>
+<body>
+
+<div id="app">
+    <com1></com1>
+    <com1></com1>
+    <com1></com1>
+    <hr></hr>
+    <hr>
+    <com2></com2>
+    <com2></com2>
+    <com2></com2>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    /**
+     * 组件的data属性需要通过函数来获取
+     */
+    var data = {msg: 1}
+    var app = new Vue({
+        el: "#app",
+        components: {
+            "com1": {
+                template: `
+                    <div>
+                        <button @click="msg+=1" type="button">{{msg}}</button>
+                    </div>
+                `,
+                data: function () {
+                    return {msg: 1} // 数据不统一
+                }
+            },
+            "com2": {
+                template: `
+                    <div>
+                        <button @click="msg+=1" type="button">{{msg}}</button>
+                    </div>
+                `,
+                data: () => data,  // 数据统一
+            }
+        }
+    })
+</script>
+</body>
+</html>
