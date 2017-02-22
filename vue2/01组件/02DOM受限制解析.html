@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>受限制的解析</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+
+</head>
+<body>
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>嘎嘎</td>
+        <td>嘎嘎</td>
+        <td>嘎嘎</td>
+    </tr>
+    <tr>
+        <td>嘎嘎</td>
+        <td>嘎嘎</td>
+        <td>嘎嘎</td>
+    </tr>
+</table>
+<hr>
+<div id="app-"></div>
+<div id="app--"></div>
+<script src="/lib/vue/vue.js"></script>
+<script type="text/x-template" id="com">
+    <tr>
+        <td>嘎嘎</td>
+        <td>嘎嘎</td>
+        <td>嘎嘎</td>
+    </tr>
+</script>
+<script>
+    Vue.component("my-row", {
+        template: `<tr> <td>嘎嘎1</td><td>嘎嘎</td><td>嘎嘎</td></tr>`,
+    })
+    /**
+     * 不会加载出<tbody>
+     */
+    var app = new Vue({
+        template: `<div id="app">
+                        <table class="table table-bordered table-striped">
+                            <my-row></my-row>
+                            <my-row></my-row>
+                        </table>
+                   </div>`
+    }).$mount("#app-")
+
+    Vue.component("my-row2", {
+        template: `#com`,
+    })
+    /**
+     * 手动添加可以解决些。心累。 难怪样式被影响了。
+     */
+    var app = new Vue({
+        template: `<div id="app2">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <my-row></my-row>
+                                <my-row></my-row>
+                            </tbody>
+                        </table>
+                   </div>`
+    }).$mount("#app--")
+</script>
+</body>
+</html>
