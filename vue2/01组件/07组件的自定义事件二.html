@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的自定义事件 计算属性</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+</head>
+<body style="margin: 40px;">
+<div id="app">
+    <button type="button" @click="counter ++" v-text="counter"></button>
+    <hr>
+    <com :counter="counter" @add="add()"></com>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script type="text/x-template" id="com">
+    <div class="com">
+        <button type="button" @click="add()" v-text="num">123</button>
+    </div>
+</script>
+<script>
+    Vue.component("com", {
+        template: "#com",
+        props: {
+            counter: {
+                type: Number,
+                default: 1
+            }
+        },
+        computed: {
+            num: function () {
+                return this.counter
+            }
+        },
+        methods: {
+            add: function () {
+//                this.num = 10; // 无效
+                this.$emit('add')
+            }
+        }
+
+    })
+    var vue = new Vue({
+        name: "app",
+        el: "#app",
+        data: () => ({
+            counter: 1
+        }),
+        methods: {
+            add: function () {
+                this.counter++;
+                console.log("父组件接收到 add的请求");
+            }
+        }
+    })
+</script>
+</body>
+</html>
