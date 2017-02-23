@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插槽</title>
+</head>
+<body>
+
+<div id="app">
+    <my-list>
+        <template slot="a" scope="query">
+            <li>{{query.text}}</li>
+        </template>
+    </my-list>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script type="text/x-template" id="myList">
+    <ul>
+        <slot name="a" v-for="item in list" :text="item">
+
+        </slot>
+    </ul>
+</script>
+<script>
+    Vue.component("myList", {
+        template: "#myList",
+        props: {
+            list: {
+                type: Array,
+                default: function () {
+                    return [1, 2]
+                }
+            }
+        }
+    });
+    var app = new Vue({
+        name: "app",
+        el: "#app"
+    })
+</script>
+</body>
+</html>
