@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <com :my-message="message"></com>
+</div>
+
+<script src="/lib/vue/vue.js"></script>
+<script type="text/x-template" id="com">
+    <div id="com">
+        <h3>{{myMessage}}</h3>
+    </div>
+</script>
+<script>
+    var com = {
+//        template: "#com",
+        template: `
+ <div id="com">
+        <h3>{{myMessage}}</h3>
+    </div>
+
+
+`,
+
+        props: ["myMessage"],
+//        props: {
+//            message: {
+//                type: String,
+//                defaule: "Hello"
+//            }
+//        }
+    };
+    var app = new Vue({
+        name: "app",
+        el: "#app",
+        data: () => ({
+           message: "Hello Component!"
+        }),
+        components: {
+            com: com
+        }
+    });
+</script>
+</body>
+</html>
