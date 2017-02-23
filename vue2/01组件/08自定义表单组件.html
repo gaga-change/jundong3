@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义表单组价</title>
+</head>
+<body style="margin: 40px">
+
+<div id="app">
+    <span v-text="msg"></span>
+    <hr>
+    <!--<my-input :value="msg" @input="msg = arguments[0]"></my-input>-->
+    <my-input v-model="msg"></my-input>
+</div>
+<script src="/lib/vue/vue.js"></script>
+
+<script type="text/x-template" id="my-input">
+    <span>
+        <input ref="input" type="text" v-bind:value="value" @input="updateValue($event.target.value)">
+    </span>
+</script>
+<script>
+    /**
+     * 子改变则父改变，
+     * 当子变动 父 不变动，子不会改变。
+     * 如果父不动，如果子动，则同时改动子。
+     */
+    Vue.component("my-input", {
+        template: "#my-input",
+        props: {
+            value: {
+                default: ""
+            }
+        },
+        methods: {
+            updateValue: function (val) {
+                var newVal = val.trim().slice(0, val.indexOf('.') < 0 ? val.length : val.indexOf('.') + 3  );
+                if(newVal !== val){
+                    this.$refs.input.value = newVal
+                }
+                this.$emit("input", newVal)
+            }
+        }
+    });
+    var app = new Vue({
+        el: "#app",
+        data: function () {
+            return {msg: "123"}
+        },
+        methods: {
+            change : function () {
+                console.log(arguments);
+                this.msg = arguments[0]
+            }
+        },
+        watch: {
+            msg: function (val, newVal) {
+                console.log(val, newVal)
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
