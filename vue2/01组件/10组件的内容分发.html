@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的内容分发</title>
+</head>
+<body>
+<div id="app">
+    <construct>
+        <h3>我是标题</h3>
+        <app-header slot="header"></app-header>
+        <app-content slot="content"></app-content>
+        <app-footer slot="footer"></app-footer>
+    </construct>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script type="text/x-template" id="construct">
+    <div>
+        <slot></slot>
+        <header>
+            <slot name="header"></slot>
+        </header>
+        <div class="content">
+            <slot name="content"></slot>
+        </div>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
+    </div>
+</script>
+<script>
+    var header = {template: "<div>header</div>"};
+    var content = {template: "<div>content</div>"};
+    var footer = {template: "<div>footer</div>"};
+
+    var app = new Vue({
+        el: "#app",
+        components: {
+            construct: {template: "#construct"},
+            appHeader: header,
+            appContent: content,
+            appFooter: footer
+        }
+    })
+</script>
+</body>
+</html>
