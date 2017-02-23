@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app1">
+    <h1>我是组价一</h1>
+    <button type="button" @click="add()" v-text="num"></button>
+</div>
+<div id="app2">
+    <h1>我是组件一</h1>
+    <button type="button" @click="add()" v-text="num"></button>
+
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var bus = new Vue();
+    var app1 = new Vue({
+        el: "#app1",
+        mounted: function () {
+            var self = this;
+            bus.$on("app1Add", function () {
+                self.num ++ ;
+            })
+        },
+        data: {
+            num: 1
+        },
+        methods: {
+            add: function () {
+                bus.$emit("app2Add")
+                this.num++
+            }
+        }
+    });
+    var app2 = new Vue({
+        el: "#app2",
+        mounted: function () {
+            var self = this;
+            bus.$on("app2Add", function () {
+                self.num ++ ;
+            })
+        },
+        data: {
+            num: 1
+        },
+        methods: {
+            add: function () {
+                bus.$emit("app1Add")
+                this.num++
+            }
+        }
+    })
+</script>
+</body>
+</html>
