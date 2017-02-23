@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05组件的动态Prop</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+    <style>
+        body {
+            margin: 40px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="app">
+    <button class="btn btn-danger  btn-lg" type="button" @click="number++"> add</button>
+    <com :number="number"></com>
+</div>
+
+<script src="/lib/vue/vue.js"></script>
+<script type="text/x-template" id="com">
+    <div class="com">
+        <h3 v-text="counter"></h3>
+        <button class="btn btn-info" @click="counter++"> add</button>
+    </div>
+</script>
+<script>
+    Vue.component("com", {
+        template: "#com",
+        props: {
+            number: {
+                type: Number,
+                default: 123
+            }
+        },
+//        data: function () {
+//            return {counter: this.number}
+//        },
+        computed: {
+            counter: function () {
+                return this.number
+            }
+        }
+    });
+    var app = new Vue({
+        name: "app",
+        el: "#app",
+        data: () => ({
+            number: 11,
+        })
+    })
+</script>
+</body>
+</html>
