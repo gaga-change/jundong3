@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/lib/animate.css/animate.css">
+    <style>
+        .router-link-active {
+            color: red !important;
+        }
+        .view {
+            background-color: yellow;
+            position: absolute;
+            width: 100%;
+        }
+        .v-entry-active {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: rotateInUpLeft;
+        }
+
+        .v-leave-active {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: rollOut;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p>
+        <router-link to="/foo/haha">/foo/haha</router-link>
+        ----------
+        <router-link to="/foo/gg">/foo/gg</router-link>
+    </p>
+    <transition>
+        <router-view class="view"></router-view>
+    </transition>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script src="/lib/vue/vue-router.js"></script>
+<script>
+    const Foo = {template: "<div>Foo {{ $route.params.id }}</div>"};
+    const router = new VueRouter({
+        math: "hash",
+        routes: [
+            {path: "/foo/:id", component: Foo},
+        ],
+        watch: {
+            '$route'(to, form){
+                console.log("to")
+            }
+        }
+    });
+    const app = new Vue({router}).$mount("#app")
+</script>
+</body>
+</html>

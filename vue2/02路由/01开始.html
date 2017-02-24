@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .router-link-active {
+            color: red !important;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>hello App!</h1>
+    <p>
+        <router-link to="/foo">Foo</router-link>
+        <router-link to="/bar">Bar</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script src="/lib/vue/vue-router.js"></script>
+<script>
+    //    console.log(VueRouter)
+    const Foo = {template: "<div>foo</div>"}
+    const Bar = {template: "<div>bar</div>"}
+    const router = new VueRouter({
+        mode: "hash",
+        routes: [
+            {path: "/foo", component: Foo},
+            {path: "/bar", component: Bar}
+        ]
+    })
+    const app = new Vue({
+        router
+    }).$mount("#app")
+</script>
+</body>
+</html>
