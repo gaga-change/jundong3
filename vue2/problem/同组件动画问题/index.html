@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>同组件动画问题</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: all 1s ease;
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+
+        .fade-leave-active {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        .view  {
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+    <!--
+        1. vue.js
+        2. 路由
+    -->
+    <script src="/lib/vue/vue.js"></script>
+    <script src="/lib/vue/vue-router.js"></script>
+    <script src="/lib/vue/vue-resource.js"></script>
+    <script type="text/x-template" id="com">
+        <div  class="view" >
+            <transition name="fade">
+                <h3 class="view" :key="$route.params.id"> 我是com组件 {{$route.params.id}}</h3>
+            </transition>
+        </div>
+    </script>
+</head>
+
+<body>
+<div id="app">
+    <h3 class="text-center">同组件动画问题 解决案例</h3>
+    <ul>
+        <router-link :to="{name: 'a', params: {id:'aaa'}}">AAAAAAAAAAAA</router-link>
+        <router-link :to="{name: 'b', params: {id:'bbb'}}">BBBBBBBBBBBB</router-link>
+        <router-link :to="{name: 'c'}">CCCCCCCCCCC</router-link>
+    </ul>
+    <hr>
+    <div class="bg-danger">
+        <transition name="fade">
+            <router-view></router-view>
+        </transition>
+    </div>
+</div>
+<script>
+    Vue.use(VueResource);
+
+    const Foo = {
+        template: "#com", activated: function () {
+//            this.doSomething();
+        }
+    };
+    const Bar = {template: "<h3 class='view'> 我是Bar 组件</h3>"}
+    const router = new VueRouter({
+        mode: "hash",
+        routes: [
+            {name: 'a', path: "/a/:id", component: Foo},
+            {name: 'b', path: "/b/:id", component: Foo},
+            {name: 'c', path: "/c", component: Bar},
+            {path: "*", redirect: '/a/123'}
+        ]
+    });
+    const app = new Vue({
+        el: "#app",
+        data: () => ({a: [1, 2, 3, 'a'], b: [4, 5, 6, 'b']}),
+        router: router
+    })
+</script>
+</body>
+</html>
