@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/lib/vue/vue.js"></script>
+    <script src="/lib/vue/vue-router.js"></script>
 </head>
 <body>
 
+<div id="app">
+    <h1>Home</h1>
+    <ul>
+        <li> <router-link to="/user/foo/profile">/user/foo/profile</router-link></li>
+        <li> <router-link to="/user/bar/posts">/user/bar/posts</router-link></li>
+        <li> <router-link to="/user/bar">/user/bar</router-link></li>
+        <li> <router-link to="/user/">/user/</router-link></li>
+        <li> <router-link to="/user">/user</router-link></li>
+    </ul>
+    <div>
+        <router-view></router-view>
+    </div>
+</div>
+
+<script>
+    const User = {
+        template: "<div> User {{ $route.params.id }} <router-view></router-view></div>"
+    };
+    const UserProfile = {
+        template: "<div> Profile</div>"
+    };
+    const UserHome = {
+        template: "<div> UserHome</div>"
+    };
+    const UserPosts = {
+        template: "<div> Posts</div>"
+    };
+    const router = new VueRouter({
+        routes: [
+            {
+                path: "/user/:id", component: User,
+                children: [
+                    {path: '', component: UserHome},
+                    {path: "Profile", component: UserProfile},
+                    {path: "Posts", component: UserPosts}
+                ]
+            },
+            {path: "*", redirect: "/user/abc"}
+        ]
+    });
+    const app = new Vue({
+        name: "App",
+        el: "#app",
+        router: router
+    })
+</script>
 </body>
 </html>
