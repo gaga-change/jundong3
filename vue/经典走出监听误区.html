@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{JSON.stringify(b)}}
+    <hr>
+    a: {{a}}
+    <hr>
+    h: {{h}}
+    <hr>
+    b: {{b}}
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    /**
+     * 从熟悉到陌生，再回归到熟悉。 心好累， 但乐在其中
+     */
+    var app = new Vue({
+        el: "#app",
+        data(){
+            return {
+                a: null,
+                h: []
+            }
+        },
+        created: function () {
+            this.a = {a: 1, b: 2}
+        },
+        watch: {
+            a: function () {
+                console.log("监听 a")
+            },
+            b: function (val, oldVal) {
+                console.log("监听 b");
+            },
+            h: function () {
+                console.log("监听 h")
+            }
+        },
+        computed: {
+            b: function () {
+                console.log("计算 b");
+                if (!this.a) return "";
+                return this.a.a.toString()
+            }
+        }
+    })
+</script>
+</body>
+</html>
