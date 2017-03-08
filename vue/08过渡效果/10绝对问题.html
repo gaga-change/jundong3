@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .fa {
+            /*position: absolute; */
+            background-color: #89ff49;
+            height: auto;
+        }
+        .fa li {
+            background-color: #efbdcb;
+        }
+        .view {
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<!--
+    绝对定位后，会影响父元素的高度
+-->
+<div id="app">
+    <ul class="fa">
+        <div class="view">
+            <li v-for="num in list" v-text="num">
+            </li>
+        </div>
+    </ul>
+    <button @click="add()">加</button>
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    var App = new Vue({
+        el: "#app",
+        data: {
+            list: [0]
+        },
+        methods: {
+            add(){
+                for (let i = 0; i < 20; i++) {
+                    this.list.push(this.list[this.list.length - 1] + 1);
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
