@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻浏览位置保留（北京时刻版）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+    <script src="/lib/jquery/jquery.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul class="nav nav-tabs navbar-fixed-top bg-danger">
+        <li v-for="item in news.map" role="presentation" :class="{'active': item.name == news.checked.name}"
+            @click="changeMenu(item)"><a
+                href="javascript:void(0)" v-text="item.name"></a></li>
+    </ul>
+    <div style="position: relative">
+        <ul class="items" v-for="itemMap in news.map" v-if="itemMap.name == news.checked.name"
+            style="position: absolute; width: 100%">
+            <li v-for="item in itemMap.list" v-text="item.title"></li>
+        </ul>
+    </div>
+    <div style="position: fixed; bottom: 3rem; right: 1rem">
+        <button type="button" class="btn btn-info" @click="moreData()">再添点数据</button>
+    </div>
+</div>
+</body>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    /**
+     * 一个列表组件。
+     * 而父组件传递数据以： data: {checked: {name: a},itemMap: [{name: 'a', list: []}]} 的形式传入。
+     * 子组件需要保留浏览位置（重点）
+     *
+     * 过程分析：
+     *  顶部一个菜单：
+     *  点击一个时，更新 data,data数据单向传入子组件
+     *  子组件监听data的改变
+     *  如果改变：
+     *      1. 页面中 v-for 的数据产生变化
+     *      2. 改变谁改显示在当前页面
+     */
+    var App = new Vue({
+        el: "#app",
+        data: {
+            lastH: 0,
+            news: {
+                checked: {name: 'a'},
+                map: [
+                    {name: 'a', list: [], scroll: 0},
+                    {name: 'b', list: [], scroll: 0},
+                    {name: 'c', list: [], scroll: 0}
+                ]
+            }
+        },
+        computed: {
+            checkedItem(){
+                let ret;
+                this.news.map.map(val => {
+                    if (val.name == this.news.checked.name)
+                        ret = val;
+                });
+                return ret;
+            }
+        },
+        mounted(){
+            console.log(this.news.map);
+            window.addEventListener('scroll', this.handleScroll);
+        },
+        methods: {
+            moreData() {
+                let num = 0;
+                if (this.checkedItem.list.length - 1 >= 0)
+                    num = this.checkedItem.list.length - 1;
+                for (let i = 0; i < 20; i++) {
+                    this.checkedItem.list.push({title: this.checkedItem.name + (num + i)});
+                }
+            },
+            changeMenu(item){
+                this.news.checked.name = item.name;
+                console.log(this.checkedItem);
+                this.$nextTick(function () {
+                    // DOM 更新了
+                    document.body.scrollTop = this.checkedItem.scroll;
+                })
+            },
+            handleScroll() {
+                let height = document.body.scrollTop;
+                console.log("浏览高度：", height, " " + this.checkedItem.name, this.checkedItem.scroll);
+                this.checkedItem.scroll = height;
+                console.log("浏览高度：", height, " " + this.checkedItem.name, this.checkedItem.scroll);
+                this.lastH = height;
+            }
+        }
+    })
+
+</script>
+
+
+<style>
+
+    ul.items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.items > li {
+        border-bottom: 1px solid gainsboro;
+        padding: 20px 10px;
+    }
+
+    ul.items > li:nth-child(even) {
+        background-color: #bbefa0;
+    }
+
+</style>
+</html>
