@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="config.js"></script>
+
+<script src="/lib/vue/vue.js"></script>
+<script>
+  const CONFIG = {};
+  CONFIG.install = function (Vue, options) {
+    Vue.CONFIG = {a: 1, b: 2};
+    Vue.prototype.$config = {a: 1, b: 2};
+  };
+  Vue.use(CONFIG);
+  console.log(Vue.CONFIG)
+    var app = new Vue();
+
+</script>
+</body>
+</html>
