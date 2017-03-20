@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的封装组件</title>
+    <script src="/lib/vue/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <construct>
+        我想把这段话间接传给son
+    </construct>
+</div>
+<script type="text/x-template" id="constructFa">
+    <div>
+        我是constructFa
+        <constructSon>
+            <slot></slot>
+        </constructSon>
+    </div>
+</script>
+<script type="text/x-template" id="constructSon">
+    <div>
+        我是constructSon
+        <br>
+        <slot></slot>
+    </div>
+</script>
+<script>
+    Vue.component('constructSon', {template: "#constructSon"});
+
+    const app = new Vue({
+        el: "#app",
+        components: {
+            construct: {template: "#constructFa"}
+        }
+    })
+</script>
+</body>
+</html>
